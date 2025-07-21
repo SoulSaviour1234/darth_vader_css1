@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>First CSS Line</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="chakra"></div>
+
+  <!-- ✅ Added id="narutoQuote" -->
+  <div class="quote" id="narutoQuote">
+    "Hard work is worthless for those that don’t believe in themselves." – Naruto Uzumaki
+  </div>
+
+  <!-- emojis & sparkles JS goes here -->
+  <script>
+    const quotes = [
+      `"Hard work is worthless for those that don’t believe in themselves." – Naruto Uzumaki`,
+      `"A lesson you learn from pain is not something you’ll ever forget." – Jiraiya`,
+      `"Power is not will, it is the phenomenon of physically making things happen." – Madara Uchiha`,
+      `"In this world, wherever there is light – there are also shadows." – Kakashi Hatake`,
+      `"The true measure of a shinobi is not how he lives, but how he dies." – Jiraiya`,
+      `"The moment people come to know love, they run the risk of carrying hate." – Obito Uchiha`,
+      `"When you give up, your dreams and everything else, they’re gone." – Naruto Uzumaki`
+    ];
+
+    let quoteIndex = 0;
+    const quoteEl = document.getElementById("narutoQuote");
+
+    setInterval(() => {
+      quoteIndex = (quoteIndex + 1) % quotes.length;
+      quoteEl.style.opacity = 0;
+      setTimeout(() => {
+        quoteEl.textContent = quotes[quoteIndex];
+        quoteEl.style.opacity = 1;
+      }, 1000); // wait for fade out
+    }, 7000); // every 7 seconds
+  </script>
+</body>
+
+</html>
