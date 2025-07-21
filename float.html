@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Float and Clear Property</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f0f0f0;
+      overflow-x: hidden;
+    }
+
+    nav {
+      background: #333;
+      color: white;
+      padding: 10px 20px;
+      position: sticky;
+      top: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    nav h1 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 15px;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ff0;
+    }
+
+    .clearfix::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    .container1, .container2 {
+      width: 45%;
+      padding: 20px;
+      margin: 20px;
+      border-radius: 10px;
+      border: 2px solid #0004;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-out;
+    }
+
+    .container1 {
+      background-color: #fdff7d;
+      float: left;
+    }
+
+    .container2 {
+      background-color: #9eff75;
+      float: right;
+    }
+
+    .show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    img {
+      float: left;
+      margin-right: 20px;
+      border-radius: 8px;
+    }
+
+    button {
+      padding: 10px 15px;
+      border: none;
+      background-color: #222;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #444;
+    }
+
+    .music-btn {
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      background: #ffadad;
+    }
+
+    @media (max-width: 768px) {
+      .container1, .container2 {
+        width: 90%;
+        float: none;
+        margin: 15px auto;
+      }
+
+      img {
+        float: none;
+        display: block;
+        margin: 10px auto;
+      }
+
+      .music-btn {
+        top: auto;
+        bottom: 20px;
+        right: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <h1>CSS Demo</h1>
+    <div>
+      <a href="">Home</a>
+      <a href="https://soulsaviour1234.github.io/darth_vader_css/text.html">Text Properties</a>
+      <a href="https://soulsaviour1234.github.io/darth_vader_css/list.html">List Styles</a>
+      <a href="https://soulsaviour1234.github.io/darth_vader_css/position.html">Positioning</a>
+      <a href="">Float & Clear</a>
+    </div>
+  </nav>
+
+  <!-- Background Music -->
+  <audio id="bgMusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
+  <button class="music-btn" onclick="toggleMusic()">🔊 Toggle Music</button>
+
+  <!-- Main Containers -->
+  <div class="clearfix">
+    <div class="container1 scroll-fade">
+      <h1>Float and Clear Property</h1>
+      <p>
+        The <code>float</code> property is used for positioning and formatting content, for example, letting text wrap around images.
+        The <code>clear</code> property is used to control the behavior of floating elements.
+      </p>
+      <ul>
+        <li><code>float: left;</code> - Floats element to the left.</li>
+        <li><code>float: right;</code> - Floats element to the right.</li>
+        <li><code>clear: left;</code> - Prevents left floats.</li>
+        <li><code>clear: right;</code> - Prevents right floats.</li>
+        <li><code>clear: both;</code> - Prevents both sides from floating.</li>
+      </ul>
+    </div>
+
+    <div class="container2 scroll-fade">
+      <h2>Example</h2>
+      <p>The image below is floated to the left, allowing the text to wrap around it.</p>
+      <img src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?auto=format&fit=crop&w=150&q=80" alt="Example Image" />
+
+      <p>
+        This is an example of how text can wrap around a floated element. The <code>clear</code> property is helpful when you want to start content after floated items.
+      </p>
+      <button onclick="playClick()">Click Me!</button>
+    </div>
+  </div>
+
+  <!-- Sound effect on button click -->
+  <audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-16.mp3" preload="auto"></audio>
+
+  <script>
+    // Play click sound
+    function playClick() {
+      document.getElementById('clickSound').play();
+      alert('You clicked the button!');
+    }
+
+    // Toggle music
+    let isPlaying = false;
+    function toggleMusic() {
+      const music = document.getElementById('bgMusic');
+      isPlaying ? music.pause() : music.play();
+      isPlaying = !isPlaying;
+    }
+
+    // Scroll animation for fade-in effect
+    const faders = document.querySelectorAll('.scroll-fade');
+    const appearOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px"
+    };
+
+    const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("show");
+        appearOnScroll.unobserve(entry.target);
+      });
+    }, appearOptions);
+
+    faders.forEach(fader => appearOnScroll.observe(fader));
+  </script>
+
+</body>
+</html>
